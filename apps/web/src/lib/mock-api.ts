@@ -1,0 +1,159 @@
+import type { ApiResponse } from "@repo/types";
+
+import { cookie } from "@/lib/cookie-client";
+import { sleep } from "@/lib/utils";
+
+import type { AuthUser, LoginCredentials, SignupCredentials } from "@/types";
+
+const MOCK_USERS_KEY = "islandhop_mock_users";
+
+const DEFAULT_USERS: Array<AuthUser & { password: string }> = [
+  {
+    id: "usr_admin_01",
+    name: "Admin User",
+    email: "admin@example.com",
+    password: "123456",
+    role: "ADMIN",
+    avatar:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+    verified: true
+  },
+  {
+    id: "usr_operator_01",
+    name: "Fast Ferry Operator",
+    email: "operator@islandhop.com",
+    password: "123456",
+    role: "OPERATOR",
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+    verified: true
+  },
+  {
+    id: "usr_passenger_01",
+    name: "Traveler Jane",
+    email: "jane@example.com",
+    password: "123456",
+    role: "USER",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+    verified: true
+  }
+];
+
+function getStoredUsers(): Array<AuthUser & { password: string }> {
+  if (typeof window === "undefined") return DEFAULT_USERS;
+  try {
+    const raw = localStorage.getItem(MOCK_USERS_KEY);
+    if (!raw) {
+      localStorage.setItem(MOCK_USERS_KEY, JSON.stringify(DEFAULT_USERS));
+      return DEFAULT_USERS;
+    }
+    return JSON.parse(raw);
+  } catch {
+    return DEFAULT_USERS;
+  }
+}
+
+function saveUsers(users: Array<AuthUser & { password: string }>) {
+  if (typeof window !== "undefined") {
+    try {
+      localStorage.setItem(MOCK_USERS_KEY, JSON.stringify(users));
+    } catch {
+      // ignore
+    }
+  }
+}
+
+function getCurrentUserFromToken(): AuthUser | null {
+  if (typeof window === "undefined") return null;
+  const token = cookie.get("accessToken");
+  if (!token) return null;
+
+  const users = getStoredUsers();
+  // Token is formatted like mock-jwt-token-{userId} or fallback
+  const user = users.find((u) => token.includes(u.id)) || users[0] || null;
+  if (!user) return null;
+
+  const { password: _, ...safeUser } = user;
+  return safeUser;
+}
+
+export const mockApi = {
+  login: async (
+    credentials: LoginCredentials
+  ): Promise<ApiResponse<{ accessToken: string; refreshToken?: string; user?: AuthUser }>> => {
+    await sleep(400);
+    const users = getStoredUsers();
+    const found = users.find(
+      (u) =>
+        u.email.toLowerCase() === credentials.email.toLowerCase() &&
+        u.password === credentials.password
+    );
+
+    if (!found) {
+      throw new Error(
+        "Invalid email or password. Please try demo credentials: admin@example.com / 123456"
+      );
+    }
+
+    const { password: _, ...user } = found;
+    const token = `mock-jwt-token-${user.id}-${Date.now()}`;
+
+    return {
+      success: true,
+      statusCode: 200,
+      message: "Welcome back! Login successful (Mock Mode).",
+      data: {
+        accessToken: token,
+        refreshToken: `mock-refresh-${user.id}`,
+        user
+      }
+    };
+  },
+
+  signup: async (credentials: SignupCredentials): Promise<ApiResponse<AuthUser>> => {
+    await sleep(450);
+    const users = getStoredUsers();
+    const existing = users.find((u) => u.email.toLowerCase() === credentials.email.toLowerCase());
+
+    if (existing) {
+      throw new Error("An account with this email address already exists.");
+    }
+
+    const newUser: AuthUser & { password: string } = {
+      id: `usr_${Date.now().toString(36)}`,
+      name: credentials.name,
+      email: credentials.email,
+      password: credentials.password,
+      role: "USER",
+      verified: true
+    };
+
+    users.push(newUser);
+    saveUsers(users);
+
+    const { password: _, ...safeUser } = newUser;
+
+    return {
+      success: true,
+      statusCode: 201,
+      message: "Account created successfully! You can now sign in.",
+      data: safeUser
+    };
+  },
+
+  getProfile: async (): Promise<ApiResponse<AuthUser>> => {
+    await sleep(200);
+    const user = getCurrentUserFromToken();
+    if (!user) {
+      throw new Error("Unauthorized or session expired.");
+    }
+
+    return {
+      success: true,
+      statusCode: 200,
+      message: "Profile retrieved successfully",
+      data: user
+    };
+  }
+};

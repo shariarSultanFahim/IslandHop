@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { Github, LayoutDashboard, LogIn, LogOut, Package, UserPlus } from "lucide-react";
+import { Github, LayoutDashboard, LogIn, LogOut, Package, Ship, UserPlus } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 
@@ -20,10 +20,10 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-            <div className="bg-primary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-lg">
-              <Package className="h-5 w-5" />
+            <div className="bg-primary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-lg shadow-sm">
+              <Ship className="h-5 w-5" />
             </div>
-            <span>Turborepo Starter</span>
+            <span className="font-extrabold tracking-tight">IslandHop</span>
           </Link>
 
           <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
@@ -31,19 +31,25 @@ export function Header() {
               href="/"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Overview
+              Home
             </Link>
             <Link
-              href="/#tech-stack"
+              href="/routes"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Tech Stack
+              Sea Routes
+            </Link>
+            <Link
+              href="/help"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Support
             </Link>
             <Link
               href="/dashboard"
               className="text-muted-foreground hover:text-foreground transition-colors"
             >
-              Dashboard
+              Fleet Dashboard
             </Link>
           </nav>
         </div>

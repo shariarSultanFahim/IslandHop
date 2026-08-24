@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { SignupForm } from "@/widgets";
 
 export const metadata: Metadata = {
-  title: "Sign Up | Turborepo Starter",
-  description: "Create an account to get started with the full-stack monorepo application."
+  title: "Sign Up | IslandHop",
+  description: "Create an IslandHop account to manage bookings and sea charters."
 };
 
 export default function SignupPage() {

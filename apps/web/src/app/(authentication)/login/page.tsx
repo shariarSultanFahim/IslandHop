@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import { LoginForm } from "@/widgets";
 
 export const metadata: Metadata = {
-  title: "Sign In | Turborepo Starter",
-  description: "Sign in to your account to access the dashboard."
+  title: "Sign In | IslandHop",
+  description: "Sign in to access your bookings and fleet operator dashboard."
 };
 
 export default function LoginPage() {

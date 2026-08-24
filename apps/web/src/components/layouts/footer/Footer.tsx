@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Github, Package, Terminal } from "lucide-react";
+import { Github, Package, Ship, Terminal } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 
@@ -12,8 +12,8 @@ export function Footer() {
       <div className="container flex flex-col gap-6">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="flex items-center gap-2 font-semibold">
-            <Package className="text-primary h-5 w-5" />
-            <span>Next.js & Express.js Turborepo Boilerplate</span>
+            <Ship className="text-primary h-5 w-5" />
+            <span>IslandHop • Marine Transport & Ferry Network</span>
           </div>
 
           <div className="text-muted-foreground flex items-center gap-6 text-sm">
