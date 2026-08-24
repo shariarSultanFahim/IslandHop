@@ -87,7 +87,8 @@ registry.registerPath({
   method: "post",
   path: "/auth/login",
   summary: "User Login",
-  description: "Authenticates a user with email and password, returning JWT access and refresh tokens.",
+  description:
+    "Authenticates a user with email and password, returning JWT access and refresh tokens.",
   tags: ["Auth"],
   request: {
     body: {
@@ -171,7 +172,8 @@ registry.registerPath({
   method: "post",
   path: "/auth/forget-password",
   summary: "Request Password Reset OTP",
-  description: "Sends a one-time verification code to the registered email address for password recovery.",
+  description:
+    "Sends a one-time verification code to the registered email address for password recovery.",
   tags: ["Auth"],
   request: {
     body: {
@@ -287,7 +289,8 @@ registry.registerPath({
   method: "post",
   path: "/auth/resend-otp",
   summary: "Resend Verification OTP",
-  description: "Resends a new one-time verification code to the authenticated user's email address.",
+  description:
+    "Resends a new one-time verification code to the authenticated user's email address.",
   tags: ["Auth"],
   security: [{ [bearerAuth.name]: [] }],
   responses: {

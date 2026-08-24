@@ -36,20 +36,16 @@ router.get("/docs.json", (_req: Request, res: Response) => {
 });
 
 // Swagger UI Explorer endpoint
-router.use(
-  "/docs",
-  swaggerUi.serve,
-  (req: Request, res: Response, next: () => void) => {
-    const doc = getDocument();
-    swaggerUi.setup(doc, {
-      customSiteTitle: `${config.branding.projectName || "Express"} API Documentation`,
-      customCss: ".swagger-ui .topbar { display: none }",
-      swaggerOptions: {
-        persistAuthorization: true,
-        displayRequestDuration: true
-      }
-    })(req, res, next);
-  }
-);
+router.use("/docs", swaggerUi.serve, (req: Request, res: Response, next: () => void) => {
+  const doc = getDocument();
+  swaggerUi.setup(doc, {
+    customSiteTitle: `${config.branding.projectName || "Express"} API Documentation`,
+    customCss: ".swagger-ui .topbar { display: none }",
+    swaggerOptions: {
+      persistAuthorization: true,
+      displayRequestDuration: true
+    }
+  })(req, res, next);
+});
 
 export const DocsRoutes = router;

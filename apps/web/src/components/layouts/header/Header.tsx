@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-import { Github, LayoutDashboard, LogIn, LogOut, Package, Ship, UserPlus } from "lucide-react";
-
-import { siteConfig } from "@/config/site";
+import { LayoutDashboard, LogIn, LogOut, Ship } from "lucide-react";
 
 import { useAuth } from "@/hooks";
 
@@ -12,91 +11,94 @@ import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { ThemeSelector } from "@/widgets";
 import { Button } from "@/ui";
 
+const NAV_LINKS = [
+  { name: "Book", href: "/#book" },
+  { name: "Routes", href: "/routes" },
+  { name: "Schedules", href: "/#schedules" },
+  { name: "Manage Booking", href: "/#manage-booking" },
+  { name: "Help", href: "/help" }
+];
+
 export function Header() {
+  const pathname = usePathname();
   const { isAuthenticated, user, logout } = useAuth();
 
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2 text-lg font-bold tracking-tight">
-            <div className="bg-primary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-lg shadow-sm">
+    <header className="border-border/60 bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md transition-all">
+      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Brand Logo */}
+        <div className="flex items-center gap-8">
+          <Link href="/" className="group flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm transition-transform group-hover:scale-105">
               <Ship className="h-5 w-5" />
             </div>
-            <span className="font-extrabold tracking-tight">IslandHop</span>
+            <span className="text-foreground text-xl font-bold tracking-tight">
+              Island<span className="text-blue-600">Hop</span>
+            </span>
           </Link>
 
-          <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
-            <Link
-              href="/"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/routes"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Sea Routes
-            </Link>
-            <Link
-              href="/help"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Support
-            </Link>
-            <Link
-              href="/dashboard"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Fleet Dashboard
-            </Link>
+          {/* Navigation Links */}
+          <nav className="text-muted-foreground hidden items-center gap-6 text-[13px] font-medium md:flex">
+            {NAV_LINKS.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`transition-colors hover:text-blue-600 ${
+                    isActive ? "font-semibold text-blue-600" : ""
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <Button variant="ghost" size="icon" asChild>
-            <Link
-              href={siteConfig.social.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="GitHub Profile"
-            >
-              <Github className="h-4 w-4" />
-              <span className="sr-only">GitHub</span>
-            </Link>
-          </Button>
-
-          <ThemeSelector />
-
-          <AnimatedThemeToggler />
+        {/* Right Actions */}
+        <div className="flex items-center gap-3">
+          {/* <ThemeSelector />
+          <AnimatedThemeToggler /> */}
 
           {isAuthenticated ? (
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-9 gap-1.5 text-xs font-semibold"
+                asChild
+              >
                 <Link href="/dashboard">
-                  <LayoutDashboard className="mr-2 h-4 w-4" />
+                  <LayoutDashboard className="h-3.5 w-3.5" />
                   <span>{user?.name || "Dashboard"}</span>
                 </Link>
               </Button>
-              <Button variant="ghost" size="sm" onClick={logout}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-muted-foreground hover:text-destructive h-9 w-9"
+                onClick={logout}
+                title="Log Out"
+              >
                 <LogOut className="h-4 w-4" />
-                <span className="sr-only">Logout</span>
+                <span className="sr-only">Log Out</span>
               </Button>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/login">
-                  <LogIn className="mr-2 h-4 w-4" />
-                  Sign In
-                </Link>
-              </Button>
-              <Button size="sm" asChild>
-                <Link href="/signup">
-                  <UserPlus className="mr-2 h-4 w-4" />
-                  Sign Up
-                </Link>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Link
+                href="/login"
+                className="text-muted-foreground hover:text-foreground px-2 py-1 text-[13px] font-medium transition-colors"
+              >
+                Log in
+              </Link>
+              <Button
+                size="sm"
+                className="h-9 rounded-lg bg-blue-600 px-4 text-xs font-semibold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow"
+                asChild
+              >
+                <Link href="/signup">Create Account</Link>
               </Button>
             </div>
           )}

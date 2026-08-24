@@ -2,7 +2,6 @@ import { OpenApiGeneratorV3 } from "@asteasolutions/zod-to-openapi";
 
 import config from "../config";
 import { registry } from "./openapi-registry";
-
 // Ensure all module OpenAPI definitions are imported and registered
 import "../app/modules/auth/auth.openapi";
 

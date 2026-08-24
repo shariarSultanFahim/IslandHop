@@ -28,7 +28,10 @@ export const createSuccessResponseSchema = <T extends z.ZodTypeAny>(
     .object({
       success: z.literal(true).openapi({ example: true }),
       statusCode: z.number().openapi({ example: 200 }),
-      message: z.string().optional().openapi({ example: options?.exampleMessage || "Operation successful" }),
+      message: z
+        .string()
+        .optional()
+        .openapi({ example: options?.exampleMessage || "Operation successful" }),
       pagination: z
         .object({
           page: z.number().openapi({ example: 1 }),

@@ -5,6 +5,7 @@ applyTo: "**"
 # Copilot Instructions — NextJS + ExpressJS Turborepo Monorepo
 
 This is a full-stack Turborepo monorepo with:
+
 - **`apps/web`** — Next.js 16 (App Router) frontend
 - **`apps/api`** — Express.js + Prisma backend
 - **`packages/*`** — Shared TypeScript configs, ESLint configs, UI components (`@repo/ui`), validators (`@repo/validators`), and types (`@repo/types`)
@@ -48,18 +49,18 @@ This is a full-stack Turborepo monorepo with:
 
 ## 3. Naming Conventions
 
-| Entity | Convention | Example |
-|---|---|---|
-| Files & folders | `kebab-case` | `auth-service.ts`, `user-list` |
-| React Components | `PascalCase` | `UserList.tsx`, `AuthForm.tsx` |
-| UI component files | `kebab-case` | `button.tsx`, `input.tsx` |
-| Hooks (file) | `kebab-case`, `use-` prefix | `use-auth.ts` |
-| Hooks (function) | `camelCase`, `use` prefix | `useAuth()` |
-| Services (API) | `PascalCase` singleton | `AuthService`, `UserService` |
-| Controllers (API) | `PascalCase` singleton | `AuthController`, `UserController` |
-| Constants | `SCREAMING_SNAKE_CASE` | `DEFAULT_LOCALE`, `MAX_FILE_SIZE` |
-| Enums | `PascalCase` name, `SCREAMING_SNAKE_CASE` values | `UserRole.ADMIN` |
-| Zod schemas | `camelCase` with `ZodSchema` suffix | `loginZodSchema`, `createUserZodSchema` |
+| Entity             | Convention                                       | Example                                 |
+| ------------------ | ------------------------------------------------ | --------------------------------------- |
+| Files & folders    | `kebab-case`                                     | `auth-service.ts`, `user-list`          |
+| React Components   | `PascalCase`                                     | `UserList.tsx`, `AuthForm.tsx`          |
+| UI component files | `kebab-case`                                     | `button.tsx`, `input.tsx`               |
+| Hooks (file)       | `kebab-case`, `use-` prefix                      | `use-auth.ts`                           |
+| Hooks (function)   | `camelCase`, `use` prefix                        | `useAuth()`                             |
+| Services (API)     | `PascalCase` singleton                           | `AuthService`, `UserService`            |
+| Controllers (API)  | `PascalCase` singleton                           | `AuthController`, `UserController`      |
+| Constants          | `SCREAMING_SNAKE_CASE`                           | `DEFAULT_LOCALE`, `MAX_FILE_SIZE`       |
+| Enums              | `PascalCase` name, `SCREAMING_SNAKE_CASE` values | `UserRole.ADMIN`                        |
+| Zod schemas        | `camelCase` with `ZodSchema` suffix              | `loginZodSchema`, `createUserZodSchema` |
 
 ---
 
@@ -93,7 +94,7 @@ This is a full-stack Turborepo monorepo with:
 - No function should exceed ~60 lines without a strong justification.
 - Magic numbers and strings must be extracted into named constants.
 - Dead code and commented-out code blocks must not be committed.
-- All non-trivial logic must have an inline comment explaining *why*, not *what*.
+- All non-trivial logic must have an inline comment explaining _why_, not _what_.
 
 ---
 
@@ -230,6 +231,7 @@ Each module follows a strict 5-file pattern:
 ## Mandatory OpenAPI Documentation Rule
 
 Whenever creating or modifying any API route in `apps/api`:
+
 - Always create or update `<module>.openapi.ts` in the feature module folder.
 - Extend Zod validation schemas using `.openapi({ description, example })`.
 - Register the route with `registry.registerPath({...})` from `src/docs/openapi-registry.ts`.

@@ -57,11 +57,11 @@ apps/api/
 
 This app is part of an AI-agent-ready monorepo. The canonical coding rules are maintained at the **repo root**:
 
-| File | Agent |
-| --- | --- |
-| `../../.agent/instructions.md` | Antigravity / Claude Code |
-| `../../.cursor/rules` | Cursor IDE |
-| `../../.github/copilot-instructions.md` | GitHub Copilot |
+| File                                    | Agent                     |
+| --------------------------------------- | ------------------------- |
+| `../../.agent/instructions.md`          | Antigravity / Claude Code |
+| `../../.cursor/rules`                   | Cursor IDE                |
+| `../../.github/copilot-instructions.md` | GitHub Copilot            |
 
 Backend-specific rules enforced by the instructions:
 

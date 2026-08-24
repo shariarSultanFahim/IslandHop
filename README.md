@@ -148,11 +148,11 @@ Run these scripts from the monorepo root:
 
 This monorepo is **AI-agent ready** with a single canonical rules file that all major coding assistants read:
 
-| File                                | Agent / Tool              |
-| ----------------------------------- | ------------------------- |
-| `.agent/instructions.md`            | Antigravity / Claude Code |
-| `.cursor/rules`                     | Cursor IDE                |
-| `.github/copilot-instructions.md`   | GitHub Copilot            |
+| File                              | Agent / Tool              |
+| --------------------------------- | ------------------------- |
+| `.agent/instructions.md`          | Antigravity / Claude Code |
+| `.cursor/rules`                   | Cursor IDE                |
+| `.github/copilot-instructions.md` | GitHub Copilot            |
 
 ### What the instructions cover
 
@@ -175,6 +175,7 @@ The backend includes automated **OpenAPI 3.0 documentation** generated directly 
 - **Raw JSON Spec**: [http://localhost:5000/api/docs.json](http://localhost:5000/api/docs.json)
 
 ### Key Features
+
 - **Zero JSDoc comments**: OpenAPI metadata wraps existing Zod schemas in modular `<module>.openapi.ts` files.
 - **Strict Response Sync**: Response schemas strictly reflect `sendResponse` (`{ success, statusCode, message, data, pagination? }`) and `globalErrorHandler` (`{ success, message, errorMessages, stack? }`).
 - **Version Aware**: Pre-configured with `/api/v1` server base URL.
@@ -193,14 +194,14 @@ The frontend ships with a full **multi-theme + dark/light mode** system:
 
 ### Built-in presets
 
-| Theme      | Description                              |
-| ---------- | ---------------------------------------- |
-| `default`  | Neutral gray — Shadcn/UI default palette |
-| `rose`     | Warm rose & pink tones                   |
-| `blue`     | Classic deep blue accent                 |
-| `green`    | Fresh emerald & sage                     |
-| `orange`   | Vibrant amber & orange                   |
-| `violet`   | Rich purple & violet                     |
+| Theme     | Description                              |
+| --------- | ---------------------------------------- |
+| `default` | Neutral gray — Shadcn/UI default palette |
+| `rose`    | Warm rose & pink tones                   |
+| `blue`    | Classic deep blue accent                 |
+| `green`   | Fresh emerald & sage                     |
+| `orange`  | Vibrant amber & orange                   |
+| `violet`  | Rich purple & violet                     |
 
 Each theme supports both **light** and **dark** variants automatically.
 

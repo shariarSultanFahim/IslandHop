@@ -5,6 +5,7 @@ This is the single source of truth for project conventions. Tool-specific files
 should point to or mirror this file rather than duplicating it.
 
 This is a full-stack Turborepo monorepo with:
+
 - **`apps/web`** — Next.js 16 (App Router) frontend — TypeScript, Tailwind CSS v4, shadcn/ui, TanStack Query
 - **`apps/api`** — Express.js + Prisma backend — TypeScript, Zod, JWT, Passport.js, Winston
 - **`packages/*`** — Shared TypeScript configs, ESLint configs, UI components (`@repo/ui`), validators (`@repo/validators`), and types (`@repo/types`)
@@ -23,7 +24,7 @@ This is a full-stack Turborepo monorepo with:
 - Magic numbers and strings must be extracted into named constants.
 - Functions must have a single responsibility and stay under ~60 lines without strong justification.
 - Dead code and commented-out code blocks must not be committed.
-- All non-trivial logic must have an inline comment explaining *why*, not *what*.
+- All non-trivial logic must have an inline comment explaining _why_, not _what_.
 
 ---
 
@@ -53,19 +54,19 @@ This is a full-stack Turborepo monorepo with:
 
 ## 3. Naming Conventions
 
-| Entity | Convention | Example |
-|---|---|---|
-| Files & folders | `kebab-case` | `auth-service.ts`, `user-list/` |
-| React components | `PascalCase` | `UserList.tsx`, `AuthForm.tsx` |
-| shadcn/ui component files | `kebab-case` | `button.tsx`, `input.tsx` |
-| Widget folders/files | `kebab-case` folders, `PascalCase` files | `widgets/user-card/UserCard.tsx` |
-| Icon components | `PascalCase` + `Icon` suffix | `ReactIcon` |
-| Hooks (file) | `kebab-case`, `use-` prefix | `use-auth.ts` |
-| Hooks (function) | `camelCase`, `use` prefix | `useAuth()` |
-| API Services | `PascalCase` singleton | `AuthService`, `UserService` |
-| API Controllers | `PascalCase` singleton | `AuthController`, `UserController` |
-| Constants | `SCREAMING_SNAKE_CASE` | `DEFAULT_LOCALE`, `MAX_FILE_SIZE` |
-| Zod schemas | `camelCase` + `ZodSchema` suffix | `loginZodSchema`, `createUserZodSchema` |
+| Entity                    | Convention                               | Example                                 |
+| ------------------------- | ---------------------------------------- | --------------------------------------- |
+| Files & folders           | `kebab-case`                             | `auth-service.ts`, `user-list/`         |
+| React components          | `PascalCase`                             | `UserList.tsx`, `AuthForm.tsx`          |
+| shadcn/ui component files | `kebab-case`                             | `button.tsx`, `input.tsx`               |
+| Widget folders/files      | `kebab-case` folders, `PascalCase` files | `widgets/user-card/UserCard.tsx`        |
+| Icon components           | `PascalCase` + `Icon` suffix             | `ReactIcon`                             |
+| Hooks (file)              | `kebab-case`, `use-` prefix              | `use-auth.ts`                           |
+| Hooks (function)          | `camelCase`, `use` prefix                | `useAuth()`                             |
+| API Services              | `PascalCase` singleton                   | `AuthService`, `UserService`            |
+| API Controllers           | `PascalCase` singleton                   | `AuthController`, `UserController`      |
+| Constants                 | `SCREAMING_SNAKE_CASE`                   | `DEFAULT_LOCALE`, `MAX_FILE_SIZE`       |
+| Zod schemas               | `camelCase` + `ZodSchema` suffix         | `loginZodSchema`, `createUserZodSchema` |
 
 ---
 
@@ -86,12 +87,14 @@ This is a full-stack Turborepo monorepo with:
 ## 5. Error Handling
 
 ### Backend (`apps/api`)
+
 - Service layer always throws `ApiError(statusCode, message)` for expected domain errors — never `throw new Error()` in a service.
 - All controller handlers are wrapped in `catchAsync` to forward async errors to `globalErrorHandler`.
 - `globalErrorHandler` handles: `ZodError`, `PrismaClientValidationError`, `TokenExpiredError`, `ApiError`, generic `Error`.
 - All API responses use the consistent shape (see §7 Response Format).
 
 ### Frontend (`apps/web`)
+
 - Data-fetching errors must be shown to users via toast notifications — never silently swallowed.
 - Every `useQuery`/`useMutation` must visually handle both loading and error states.
 
@@ -100,6 +103,7 @@ This is a full-stack Turborepo monorepo with:
 ## 6. Frontend Rules — `apps/web` (Next.js 16 App Router)
 
 ### Project Structure
+
 ```
 src/
   app/           # App Router pages, layouts, route handlers
@@ -119,11 +123,13 @@ src/
 ```
 
 ### Environment Variables
+
 - Managed with `@t3-oss/env-nextjs`; `src/env.ts` is the single source of truth — import env values only from there.
 - Client-safe variables must use the `NEXT_PUBLIC_` prefix.
 - Variables are validated with Zod at build time.
 
 ### Components
+
 - Every component folder must have an `index.ts` that re-exports it.
 - `components/ui` (shadcn/ui) must not be modified — extend via wrapper components.
 - Prop names must be intent-driven: `onSubmit`, `isLoading`, `variant`, `children`.
@@ -131,16 +137,19 @@ src/
 - Avoid deeply nested ternaries in JSX — extract to named variables or helper functions.
 
 ### Data Fetching
+
 - All HTTP requests must use the `get`, `post`, `put`, `del` helpers from `src/lib/api.ts` (Axios-based).
 - Use TanStack Query (`useQuery`, `useMutation`) for all server-state operations.
 - Show loading and error states for every async operation; errors surface as toast notifications.
 
 ### State Management
+
 - Use React Context for global UI state; provider files live in `src/providers/` with `PascalCase` naming.
 - Provider hooks are named `useX` (e.g., `useThemePreset`).
 - Avoid `useState` for server state — use TanStack Query.
 
 ### Styling & Themes
+
 - Tailwind CSS exclusively — no inline styles, no CSS Modules, no styled-components.
 - Theme CSS variables (`--background`, `--primary`, etc.) are managed via `ThemePresetProvider` through an injected `<style>` tag.
 - Font variables (`--font-sans`, `--font-serif`, `--font-mono`) are set per theme preset.
@@ -148,20 +157,24 @@ src/
 - shadcn/ui component variants must be used as-is; extend via `className` prop only.
 
 ### Routing & Cookies
+
 - Use Next.js App Router conventions — `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`.
 - Server: use `cookies()` from `next/headers`.
 - Client: use helpers from `src/lib/cookie-client.ts`.
 - Middleware for auth guards lives in `src/middleware.ts`.
 
 ### Accessibility
+
 - All interactive elements must have accessible labels.
 - Use appropriate ARIA attributes where semantic HTML is insufficient.
 - Meaningful images must be wrapped in `<figure>` with `<figcaption>`.
 
 ### Icons
+
 - All icons must come from `lucide-react` only. Do not mix icon libraries.
 
 ### Utilities & Constants
+
 - Reusable pure functions → `src/lib/` or `src/helpers/`
 - Date formatting → `src/lib/date.ts`; number/currency → `Intl` API
 - Slugs → `@sindresorhus/slugify`
@@ -173,6 +186,7 @@ src/
 ## 7. Backend Rules — `apps/api` (Express.js + Prisma)
 
 ### Project Structure
+
 ```
 src/
   app/
@@ -198,7 +212,9 @@ src/
 ```
 
 ### Module Pattern (Controller / Service / Route / Validation / OpenAPI)
+
 Each module follows a strict 5-file pattern (4 core + 1 OpenAPI):
+
 - **`<module>.validation.ts`** — Zod schemas for request validation. Names: `create<Action>ZodSchema`.
 - **`<module>.route.ts`** — Express router. Mount `validateRequest(schema)` before the controller.
 - **`<module>.controller.ts`** — Thin handlers. Use `catchAsync`. Call service, call `sendResponse`.
@@ -206,7 +222,9 @@ Each module follows a strict 5-file pattern (4 core + 1 OpenAPI):
 - **`<module>.openapi.ts`** — OpenAPI 3.0 schema and route registration. Extends Zod schemas via `.openapi()` and registers paths with `registry.registerPath({...})`.
 
 ### Mandatory OpenAPI Documentation Rule (ALWAYS REQUIRED FOR APIS)
+
 Whenever creating or updating any API route, endpoint, or feature module in `apps/api`:
+
 - **Always create/update `<module>.openapi.ts`** in the module directory.
 - Extend existing Zod schemas from `<module>.validation.ts` using `.openapi({ description, example })` without modifying the validation file.
 - Register all endpoints with `registry.registerPath({...})` from `src/docs/openapi-registry.ts`.
@@ -216,27 +234,40 @@ Whenever creating or updating any API route, endpoint, or feature module in `app
 - Endpoints are served via Swagger UI at `/api/docs` and raw spec at `/api/docs.json`.
 
 ### API Versioning & Routing
+
 - All routes must be organized under version directories: `src/routes/v1/` and mounted under `/api/v1`.
 - `src/routes/index.ts` aggregates versions (`/v1`, `/v2`, etc.).
 - Adding a new API version (e.g. `v2`) involves creating `src/routes/v2/index.ts` and mounting it alongside `v1` in `src/routes/index.ts` without breaking or duplicating unchanged `v1` modules.
 
 ### Request Validation
+
 - Every mutating route must have a Zod validation schema in `<module>.validation.ts`.
 - Apply `validateRequest(schema)` middleware in the route file before the controller handler.
 - Never access `req.body` in a controller or service without prior schema validation.
 
 ### Response Format
+
 Success (via `sendResponse`):
+
 ```json
 { "success": true, "statusCode": 200, "message": "...", "data": {} | null, "meta": {} }
 ```
+
 Error (via `globalErrorHandler`):
+
 ```json
-{ "success": false, "message": "...", "errorMessages": [{ "path": "", "message": "..." }], "stack": "..." }
+{
+  "success": false,
+  "message": "...",
+  "errorMessages": [{ "path": "", "message": "..." }],
+  "stack": "..."
+}
 ```
+
 - `stack` is included only in development.
 
 ### Database & Prisma
+
 - Use the shared Prisma client from `src/shared/prisma.ts` — never instantiate `PrismaClient` directly.
 - Use `prisma.user.findUnique` (not `findFirst`) when looking up by a unique field.
 - Select only the fields you need — avoid over-fetching with implicit `SELECT *`.
@@ -245,6 +276,7 @@ Error (via `globalErrorHandler`):
 - Never edit `prisma/migrations/` files manually.
 
 ### Authentication & Authorization
+
 - JWT-based auth: access tokens (short-lived) + refresh tokens (long-lived).
 - Tokens signed with secrets from `config.jwt` — never with hardcoded strings.
 - The `auth` middleware must verify and decode the JWT before attaching `req.user`.
@@ -253,17 +285,20 @@ Error (via `globalErrorHandler`):
 - Sessions (for OAuth) use `express-session` with `httpOnly`, `secure`, `sameSite` cookie flags.
 
 ### Logging
+
 - Use `winston` for structured logging (`src/shared/logger.ts`).
 - Morgan logs HTTP requests (success and error streams are separate).
 - Never log passwords, tokens, or PII in any environment.
 - Development: log at `info` level; Production: log at `warn`/`error` only.
 
 ### File Uploads
+
 - Uploaded files are served from the `uploads/` directory via `express.static("uploads")`.
 - Validate file type and size before saving — reject unknown MIME types.
 - Never trust the file extension from the client — use MIME sniffing.
 
 ### Environment & Config
+
 - All config values are loaded in `src/config/index.ts` from `process.env`.
 - Config is accessed throughout the app via `import config from "../config"` — never `process.env` directly in business logic.
 - `.env.example` must be kept up to date whenever a new variable is added.
