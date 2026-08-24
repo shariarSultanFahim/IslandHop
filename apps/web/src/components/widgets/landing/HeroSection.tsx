@@ -50,14 +50,14 @@ export function HeroSection() {
             className="object-cover object-center"
           />
           {/* Background Overlay: 100% opacity on left to 0% opacity on right */}
-          <div className="from-background via-background/60 absolute inset-0 bg-gradient-to-r to-transparent" />
+          {/* <div className="from-background via-background/60 absolute inset-0 bg-gradient-to-r to-transparent" /> */}
         </div>
 
         <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Hero Typography */}
           <div className="max-w-xl space-y-4">
-            <div className="text-primary text-xs font-semibold tracking-wider uppercase">
-              FERRY TRAVEL, MADE SIMPLE
+            <div className="text-primary bg-card bg-opacity/30 flex w-fit items-center gap-2 rounded-full px-2 py-1 text-xs font-semibold tracking-wider uppercase">
+              <Ship className="text-primary h-4 w-4" /> FERRY TRAVEL, MADE SIMPLE
             </div>
 
             <h1 className="text-foreground text-4xl font-black tracking-tight sm:text-5xl lg:text-[54px] lg:leading-[1.12]">
