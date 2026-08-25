@@ -14,3 +14,5 @@ export * from "./tooltip";
 export * from "./popover";
 export * from "./command";
 export * from "./accordion";
+export * from "./table";
+export * from "./dialog";

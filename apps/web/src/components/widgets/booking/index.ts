@@ -7,3 +7,4 @@ export * from "./RouteCard";
 export * from "./RouteSearchFilterBar";
 export * from "./RoutesValueProps";
 export * from "./PortCombobox";
+export * from "./ManageBookingsTable";
