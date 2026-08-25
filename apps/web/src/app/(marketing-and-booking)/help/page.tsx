@@ -1,112 +1,201 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+"use client";
 
-import { AlertTriangle, HelpCircle, Mail, MessageSquare, Phone, Shield } from "lucide-react";
+import { useState } from "react";
 
-import { UnderConstruction } from "@/components/widgets";
-import { Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/ui";
+import { Bell, Clock, FileText, Mail, Phone } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Help & Support | IslandHop",
-  description: "Frequently asked questions and passenger support for island transfers."
-};
+import { FAQ_DATA } from "@/data/faqs";
 
-const FAQS = [
-  {
-    question: "How do I receive and present my ticket?",
-    answer:
-      "Upon booking, your digital QR pass is immediately generated in your dashboard and sent via email. You can present it directly on your mobile device at the pier terminal."
-  },
-  {
-    question: "What happens in case of rough weather or sea warnings?",
-    answer:
-      "Passenger safety is our highest priority. If the Coast Guard or maritime authorities issue a sea warning, trips are automatically rescheduled or 100% refunded."
-  },
-  {
-    question: "How much luggage can I bring on speedboats?",
-    answer:
-      "Standard tickets allow 1 suitcase (up to 25kg) and 1 carry-on backpack. Special gear like surfboards or diving equipment can be declared during booking."
-  },
-  {
-    question: "Can I cancel or modify my booking time?",
-    answer:
-      "Bookings can be modified or canceled up to 2 hours before departure directly from your dashboard."
-  }
-];
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Button,
+  Card,
+  CardContent,
+  Input
+} from "@/ui";
 
 export default function HelpPage() {
+  const [emailSub, setEmailSub] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!emailSub) return;
+    setIsSubscribed(true);
+    setTimeout(() => {
+      setEmailSub("");
+      setIsSubscribed(false);
+    }, 3000);
+  };
+
   return (
-    <>
-      <UnderConstruction />
-    </>
-    // <div className="container mx-auto max-w-4xl px-4 py-12">
-    //   <div className="mb-12 space-y-3 text-center">
-    //     <Badge variant="outline" className="text-primary border-primary/30">
-    //       <HelpCircle className="mr-1 h-3.5 w-3.5" /> Passenger Support & FAQ
-    //     </Badge>
-    //     <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">How can we help you?</h1>
-    //     <p className="text-muted-foreground mx-auto max-w-lg text-sm">
-    //       Find answers to common questions about boat bookings, baggage limits, weather policies,
-    //       and boarding.
-    //     </p>
-    //   </div>
+    <div className="dark:bg-background min-h-screen bg-[#F8FAFC] pb-20">
+      <main className="container mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:px-8">
+        {/* Top Header */}
+        <div className="mb-10 space-y-1">
+          <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl">FAQ</h1>
+          <p className="text-muted-foreground text-xs sm:text-sm">
+            Here are some frequently asked questions.
+          </p>
+          <div className="h-[3px] w-12 rounded-full bg-[#003B95] dark:bg-blue-500" />
+        </div>
 
-    //   {/* Contact Cards */}
-    //   <div className="mb-12 grid grid-cols-1 gap-4 md:grid-cols-3">
-    //     <Card className="p-4 text-center">
-    //       <CardContent className="space-y-2 pt-4">
-    //         <div className="bg-primary/10 text-primary mx-auto flex h-10 w-10 items-center justify-center rounded-full">
-    //           <MessageSquare className="h-5 w-5" />
-    //         </div>
-    //         <h3 className="text-sm font-semibold">24/7 Live Chat</h3>
-    //         <p className="text-muted-foreground text-xs">Chat with marine dispatchers</p>
-    //         <Button variant="outline" size="sm" className="w-full text-xs">
-    //           Start Chat
-    //         </Button>
-    //       </CardContent>
-    //     </Card>
+        {/* 2-Column Main Section */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+          {/* Left Column: FAQ Accordion List */}
+          <div className="lg:col-span-8">
+            <Card className="border-border/80 dark:bg-card rounded-3xl border bg-white p-6 shadow-sm sm:p-8">
+              <CardContent className="p-0">
+                <Accordion type="single" collapsible defaultValue="faq-1" className="w-full">
+                  {FAQ_DATA.map((faq) => (
+                    <AccordionItem key={faq.id} value={faq.id}>
+                      <AccordionTrigger className="hover:no-underline">
+                        <div className="flex items-center gap-3.5 pr-2">
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#003B95]/10 text-[#003B95] dark:bg-blue-950/40 dark:text-blue-400">
+                            <FileText className="h-4 w-4" />
+                          </div>
+                          <div className="space-y-0.5 text-left">
+                            <div className="text-foreground text-sm font-bold">{faq.question}</div>
+                            <div className="text-primary text-[11px] font-semibold">
+                              {faq.category}
+                            </div>
+                          </div>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground pl-[52px] text-xs leading-relaxed sm:text-sm">
+                        {faq.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </CardContent>
+            </Card>
+          </div>
 
-    //     <Card className="p-4 text-center">
-    //       <CardContent className="space-y-2 pt-4">
-    //         <div className="bg-primary/10 text-primary mx-auto flex h-10 w-10 items-center justify-center rounded-full">
-    //           <Phone className="h-5 w-5" />
-    //         </div>
-    //         <h3 className="text-sm font-semibold">Emergency Marine Line</h3>
-    //         <p className="text-muted-foreground text-xs">+1 (800) 555-BOAT</p>
-    //         <Button variant="outline" size="sm" className="w-full text-xs">
-    //           Call Support
-    //         </Button>
-    //       </CardContent>
-    //     </Card>
+          {/* Right Column: "Still need help?" Support Cards */}
+          <div className="space-y-6 lg:col-span-4">
+            <Card className="border-border/80 dark:bg-card rounded-3xl border bg-white p-6 shadow-sm sm:p-7">
+              <CardContent className="space-y-5 p-0">
+                <div className="space-y-1">
+                  <h3 className="text-foreground text-lg font-bold tracking-tight">
+                    Still need help?
+                  </h3>
+                  <p className="text-muted-foreground text-xs">Our support team is here for you.</p>
+                </div>
 
-    //     <Card className="p-4 text-center">
-    //       <CardContent className="space-y-2 pt-4">
-    //         <div className="bg-primary/10 text-primary mx-auto flex h-10 w-10 items-center justify-center rounded-full">
-    //           <Mail className="h-5 w-5" />
-    //         </div>
-    //         <h3 className="text-sm font-semibold">Email Support</h3>
-    //         <p className="text-muted-foreground text-xs">support@islandhop.com</p>
-    //         <Button variant="outline" size="sm" className="w-full text-xs">
-    //           Send Email
-    //         </Button>
-    //       </CardContent>
-    //     </Card>
-    //   </div>
+                {/* 1. Email Support Card */}
+                <div className="rounded-2xl border border-blue-100 bg-[#F0F7FF] p-4 dark:border-blue-900/40 dark:bg-blue-950/20">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#003B95]/10 text-[#003B95] dark:bg-blue-900/50 dark:text-blue-300">
+                      <Mail className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-foreground text-xs font-bold">Email Support</h4>
+                      <p className="text-muted-foreground text-[11px]">
+                        Send us an email and we&apos;ll get back to you.
+                      </p>
+                    </div>
+                  </div>
 
-    //   {/* FAQ List */}
-    //   <div className="space-y-4">
-    //     <h2 className="mb-4 text-xl font-bold tracking-tight">Frequently Asked Questions</h2>
-    //     {FAQS.map((faq, idx) => (
-    //       <Card key={idx}>
-    //         <CardHeader className="p-4 pb-2">
-    //           <CardTitle className="text-sm font-semibold">{faq.question}</CardTitle>
-    //         </CardHeader>
-    //         <CardContent className="text-muted-foreground p-4 pt-1 text-xs leading-relaxed">
-    //           {faq.answer}
-    //         </CardContent>
-    //       </Card>
-    //     ))}
-    //   </div>
-    // </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="dark:bg-card dark:hover:bg-card/80 mt-3.5 h-9 w-full rounded-xl border-[#003B95]/30 bg-white text-xs font-bold text-[#003B95] hover:bg-blue-50 dark:text-blue-300"
+                    asChild
+                  >
+                    <a href="mailto:support@islandhop.com">Send an Email</a>
+                  </Button>
+                </div>
+
+                {/* 2. Phone Support Card */}
+                <div className="border-border/80 bg-muted/30 rounded-2xl border p-4">
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                      <Phone className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-foreground text-xs font-bold">Phone Support</h4>
+                      <p className="text-muted-foreground text-[11px]">
+                        Call us during our support hours.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-3.5 space-y-1">
+                    <a
+                      href="tel:+9603331234"
+                      className="text-base font-black text-[#003B95] hover:underline dark:text-blue-400"
+                    >
+                      +960 333 1234
+                    </a>
+                    <div className="text-muted-foreground text-[10px] font-medium">
+                      Daily, 08:00 AM &ndash; 10:00 PM (MVT)
+                    </div>
+                  </div>
+                </div>
+
+                {/* 3. Support Center Hours Card */}
+                <div className="border-border/80 bg-muted/30 rounded-2xl border p-4">
+                  <div className="flex items-start gap-2.5">
+                    <div className="bg-muted text-muted-foreground flex h-8 w-8 shrink-0 items-center justify-center rounded-lg">
+                      <Clock className="h-4 w-4" />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-foreground text-xs font-bold">Support Center Hours</h4>
+                      <p className="text-muted-foreground text-[11px]">
+                        We are available every day
+                      </p>
+                      <div className="text-foreground pt-0.5 text-xs font-bold">
+                        08:00 AM &ndash; 10:00 PM (MVT)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Bottom Banner: Stay updated / Newsletter */}
+        <div className="mt-14 overflow-hidden rounded-3xl border border-blue-100 bg-[#EBF5FF] p-6 shadow-sm sm:p-8 dark:border-blue-900/40 dark:bg-blue-950/30">
+          <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
+            {/* Left Icon & Text */}
+            <div className="flex items-center gap-4 text-center sm:text-left">
+              <div className="dark:bg-card flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-[#003B95] shadow-xs dark:text-blue-300">
+                <Bell className="h-6 w-6 stroke-[2.2]" />
+              </div>
+              <div className="space-y-0.5">
+                <h3 className="text-foreground text-xl font-bold tracking-tight">Stay updated</h3>
+                <p className="text-muted-foreground text-xs">
+                  Subscribe to get the latest updates about schedules, promotions and service
+                  alerts.
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Email Input & Subscribe Button */}
+            <form onSubmit={handleSubscribe} className="flex w-full max-w-md items-center gap-2">
+              <Input
+                type="email"
+                value={emailSub}
+                onChange={(e) => setEmailSub(e.target.value)}
+                placeholder="Enter your email address"
+                required
+                className="border-border/80 dark:bg-card h-12 flex-1 rounded-2xl bg-white text-xs font-medium"
+              />
+              <Button
+                type="submit"
+                className="h-12 rounded-2xl bg-[#003B95] px-6 text-xs font-bold text-white shadow-md transition-all hover:bg-[#002f77]"
+              >
+                {isSubscribed ? "Subscribed!" : "Subscribe"}
+              </Button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }
