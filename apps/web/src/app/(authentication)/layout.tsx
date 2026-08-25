@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Ship } from "lucide-react";
 
-import authBg from "@/assets/auth/bg.jpg";
+import authBg from "@/assets/auth/bg.png";
 
 export default function AuthenticationLayout({ children }: { children: ReactNode }) {
   return (

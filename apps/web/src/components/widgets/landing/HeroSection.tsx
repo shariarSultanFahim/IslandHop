@@ -53,7 +53,7 @@ export function HeroSection() {
           <div className="from-background via-background/60 absolute inset-0 bg-gradient-to-r to-transparent md:hidden" />
         </div>
 
-        <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 md:py-10 lg:px-8 lg:py-20">
           {/* Hero Typography */}
           <div className="max-w-xl space-y-4">
             <div className="text-primary bg-card bg-opacity/30 flex w-fit items-center gap-2 rounded-full px-2 py-1 text-xs font-semibold tracking-wider uppercase">
