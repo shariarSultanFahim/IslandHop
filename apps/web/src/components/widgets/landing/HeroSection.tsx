@@ -19,6 +19,7 @@ import {
 
 import heroBg from "@/assets/landing-page/hero-bg.png";
 
+import { PortCombobox } from "@/components/widgets/booking/PortCombobox";
 import { Button, Card, CardContent, Input, Label } from "@/ui";
 
 export function HeroSection() {
@@ -119,17 +120,12 @@ export function HeroSection() {
                 <Label className="text-muted-foreground text-[10px] font-extrabold tracking-wider uppercase">
                   FROM
                 </Label>
-                <div className="border-input bg-muted/40 focus-within:border-ring flex h-11 items-center gap-2 rounded-xl border px-3.5 transition-colors">
-                  <MapPin className="text-muted-foreground h-4 w-4 shrink-0" />
-                  <Input
-                    type="text"
-                    value={departurePort}
-                    onChange={(e) => setDeparturePort(e.target.value)}
-                    placeholder="Departure port"
-                    className="text-foreground placeholder:text-muted-foreground h-auto border-0 bg-transparent p-0 text-xs font-bold focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
-                  <ChevronRight className="text-muted-foreground h-3.5 w-3.5 shrink-0 rotate-90 opacity-50" />
-                </div>
+                <PortCombobox
+                  value={departurePort}
+                  onChange={setDeparturePort}
+                  placeholder="Departure port"
+                  icon={MapPin}
+                />
               </div>
 
               {/* SWAP BUTTON */}
@@ -151,17 +147,12 @@ export function HeroSection() {
                 <Label className="text-muted-foreground text-[10px] font-extrabold tracking-wider uppercase">
                   TO
                 </Label>
-                <div className="border-input bg-muted/40 focus-within:border-ring flex h-11 items-center gap-2 rounded-xl border px-3.5 transition-colors">
-                  <Anchor className="text-muted-foreground h-4 w-4 shrink-0" />
-                  <Input
-                    type="text"
-                    value={destinationPort}
-                    onChange={(e) => setDestinationPort(e.target.value)}
-                    placeholder="Destination"
-                    className="text-foreground placeholder:text-muted-foreground h-auto border-0 bg-transparent p-0 text-xs font-bold focus-visible:ring-0 focus-visible:ring-offset-0"
-                  />
-                  <ChevronRight className="text-muted-foreground h-3.5 w-3.5 shrink-0 rotate-90 opacity-50" />
-                </div>
+                <PortCombobox
+                  value={destinationPort}
+                  onChange={setDestinationPort}
+                  placeholder="Destination"
+                  icon={Anchor}
+                />
               </div>
 
               {/* DEPARTURE */}
