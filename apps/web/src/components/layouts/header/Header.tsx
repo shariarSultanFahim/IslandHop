@@ -3,16 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { LayoutDashboard, LogIn, LogOut, Ship } from "lucide-react";
+import { LayoutDashboard, LogOut, Ship } from "lucide-react";
 
 import { useAuth } from "@/hooks";
 
-import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
-import { ThemeSelector } from "@/widgets";
 import { Button } from "@/ui";
 
 const NAV_LINKS = [
-  { name: "Book", href: "/#book" },
+  { name: "Book", href: "/" },
   { name: "Routes", href: "/routes" },
   { name: "Schedules", href: "/#schedules" },
   { name: "Manage Booking", href: "/#manage-booking" },
