@@ -13,3 +13,4 @@ export * from "./stepper";
 export * from "./tooltip";
 export * from "./popover";
 export * from "./command";
+export * from "./accordion";
