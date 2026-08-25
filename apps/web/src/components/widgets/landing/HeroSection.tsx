@@ -209,7 +209,10 @@ export function HeroSection() {
                       className="h-11 rounded-xl px-5 text-xs font-bold shadow-md transition-all hover:shadow-lg"
                       asChild
                     >
-                      <Link href="/routes" className="flex items-center gap-2 whitespace-nowrap">
+                      <Link
+                        href={`/book?tripType=${encodeURIComponent(tripType)}&from=${encodeURIComponent(departurePort)}&to=${encodeURIComponent(destinationPort)}&departureDate=${encodeURIComponent(departureDate)}&passengers=${encodeURIComponent(passengers)}`}
+                        className="flex items-center gap-2 whitespace-nowrap"
+                      >
                         <span>Search Ferries</span>
                         <ArrowRight className="h-4 w-4" />
                       </Link>
