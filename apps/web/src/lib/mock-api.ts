@@ -31,9 +31,9 @@ const DEFAULT_USERS: Array<AuthUser & { password: string }> = [
   {
     id: "usr_passenger_01",
     name: "Traveler Jane",
-    email: "jane@example.com",
+    email: "jane@islandhop.com",
     password: "123456",
-    role: "USER",
+    role: "PASSENGER",
     avatar:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
     verified: true
@@ -48,7 +48,13 @@ function getStoredUsers(): Array<AuthUser & { password: string }> {
       localStorage.setItem(MOCK_USERS_KEY, JSON.stringify(DEFAULT_USERS));
       return DEFAULT_USERS;
     }
-    return JSON.parse(raw);
+    const stored: Array<AuthUser & { password: string }> = JSON.parse(raw);
+    // Merge: ensure all DEFAULT_USERS exist and are up to date, plus any newly registered users
+    const defaultEmails = new Set(DEFAULT_USERS.map((u) => u.email.toLowerCase()));
+    const customUsers = stored.filter((u) => !defaultEmails.has(u.email.toLowerCase()));
+    const merged = [...DEFAULT_USERS, ...customUsers];
+    localStorage.setItem(MOCK_USERS_KEY, JSON.stringify(merged));
+    return merged;
   } catch {
     return DEFAULT_USERS;
   }
@@ -125,7 +131,7 @@ export const mockApi = {
       name: credentials.name,
       email: credentials.email,
       password: credentials.password,
-      role: "USER",
+      role: "PASSENGER",
       verified: true
     };
 
