@@ -50,7 +50,7 @@ export function HeroSection() {
             className="object-cover object-center"
           />
           {/* Background Overlay: 100% opacity on left to 0% opacity on right */}
-          {/* <div className="from-background via-background/60 absolute inset-0 bg-gradient-to-r to-transparent" /> */}
+          <div className="from-background via-background/60 absolute inset-0 bg-gradient-to-r to-transparent md:hidden" />
         </div>
 
         <div className="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -87,7 +87,7 @@ export function HeroSection() {
       </div>
 
       {/* Floating Search Bar Card */}
-      <div className="mx-auto -mt-24 max-w-7xl">
+      <div className="mx-auto -mt-18 max-w-7xl px-4 sm:px-6 lg:px-8">
         <Card className="border-border bg-card/95 rounded-2xl p-6 shadow-2xl backdrop-blur-md sm:p-7">
           <CardContent className="p-0">
             {/* Trip Type Pills */}

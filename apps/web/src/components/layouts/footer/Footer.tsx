@@ -43,7 +43,7 @@ export function Footer() {
 
       <div className="relative z-10 container mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Main 5-Column Grid */}
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 lg:gap-8">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-3 lg:grid-cols-12 lg:gap-8">
           {/* Column 1: Brand Info & Socials (4 Cols) */}
           <div className="space-y-6 lg:col-span-4">
             <Link href="/" className="flex items-center gap-2.5">

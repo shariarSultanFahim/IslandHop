@@ -44,7 +44,7 @@ export function OperatorPlatformSection() {
           </div>
 
           {/* Right: Laptop Dashboard Graphic Mockup */}
-          <div className="relative flex justify-center lg:col-span-7">
+          <div className="relative flex justify-center lg:col-span-7 lg:justify-end">
             <div className="relative w-full max-w-xl">
               <Image
                 src={laptopMockup}
