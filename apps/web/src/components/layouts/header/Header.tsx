@@ -12,14 +12,24 @@ import { Button } from "@/ui";
 const NAV_LINKS = [
   { name: "Book", href: "/" },
   { name: "Routes", href: "/routes" },
-  { name: "Schedules", href: "/#schedules" },
-  { name: "Manage Booking", href: "/#manage-booking" },
+  { name: "Manage Booking", href: "/manage-booking" },
   { name: "Help", href: "/help" }
 ];
 
 export function Header() {
   const pathname = usePathname();
   const { isAuthenticated, user, logout } = useAuth();
+
+  const isPassenger =
+    isAuthenticated &&
+    (user?.role?.toUpperCase() === "PASSENGER" || user?.role?.toUpperCase() === "USER");
+
+  const visibleNavLinks = NAV_LINKS.filter((link) => {
+    if (link.href === "/manage-booking") {
+      return isPassenger;
+    }
+    return true;
+  });
 
   return (
     <header className="border-border/60 bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md transition-all">
@@ -37,7 +47,7 @@ export function Header() {
 
           {/* Navigation Links */}
           <nav className="text-muted-foreground hidden items-center gap-6 text-[13px] font-medium md:flex">
-            {NAV_LINKS.map((link) => {
+            {visibleNavLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
