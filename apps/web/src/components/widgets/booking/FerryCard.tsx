@@ -3,7 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { ArrowRight, Ship, UserCheck } from "lucide-react";
+import { ArrowRight, Ship } from "lucide-react";
+import { useQueryStates } from "nuqs";
+
+import { bookingSearchParamsParsers, extractPassengerCount } from "@/schemas/booking-params";
 
 import type { FerryTrip } from "@/data/ferries";
 
@@ -14,6 +17,15 @@ interface FerryCardProps {
 }
 
 export function FerryCard({ trip }: FerryCardProps) {
+  const [params] = useQueryStates(bookingSearchParamsParsers);
+  const numericCount = extractPassengerCount(params.passengers);
+
+  const reviewUrl = `/book/${trip.id}/review?passengers=${numericCount}&departureDate=${encodeURIComponent(
+    params.departureDate
+  )}&from=${encodeURIComponent(params.from)}&to=${encodeURIComponent(params.to)}&tripType=${
+    params.tripType
+  }`;
+
   return (
     <Card className="group border-border bg-card hover:border-primary/40 overflow-hidden rounded-2xl p-0 shadow-sm transition-all duration-200 hover:shadow-md">
       <CardContent className="p-4">
@@ -111,7 +123,7 @@ export function FerryCard({ trip }: FerryCardProps) {
                     className="mt-3 rounded-xl px-5 font-bold shadow-md transition-all hover:shadow-lg"
                     asChild
                   >
-                    <Link href={`/login?from=/dashboard&tripId=${trip.id}`}>
+                    <Link href={reviewUrl}>
                       <span>Select Trip</span>
                       <ArrowRight className="ml-1.5 h-4 w-4" />
                     </Link>
