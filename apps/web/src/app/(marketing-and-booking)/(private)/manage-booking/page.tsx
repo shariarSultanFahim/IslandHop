@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 
 import { Ticket } from "lucide-react";
@@ -27,8 +28,16 @@ export default function ManageBookingsPage() {
           </p>
         </div>
 
-        {/* Data Table */}
-        <ManageBookingsTable />
+        {/* Data Table with Suspense Boundary for useSearchParams / nuqs */}
+        <Suspense
+          fallback={
+            <div className="border-border/80 dark:bg-card flex h-64 items-center justify-center rounded-3xl border bg-white">
+              <div className="text-muted-foreground text-xs">Loading bookings...</div>
+            </div>
+          }
+        >
+          <ManageBookingsTable />
+        </Suspense>
       </main>
     </div>
   );
