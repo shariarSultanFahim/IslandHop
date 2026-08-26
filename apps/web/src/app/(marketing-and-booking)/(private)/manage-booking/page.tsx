@@ -28,7 +28,7 @@ export default function ManageBookingsPage() {
           </p>
         </div>
 
-        {/* Data Table with Suspense Boundary for useSearchParams / nuqs */}
+        {/* Data Table with Suspense Boundary for useSearchParams */}
         <Suspense
           fallback={
             <div className="border-border/80 dark:bg-card flex h-64 items-center justify-center rounded-3xl border bg-white">
