@@ -89,7 +89,7 @@ export function MobileNavbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="border-border/40 bg-background/40 fixed inset-x-0 top-[4rem] z-40 overflow-hidden rounded-b-xl border-b backdrop-blur-xl"
+            className="border-border/60 bg-background/95 fixed inset-x-0 top-16 z-40 overflow-hidden border-b shadow-xl backdrop-blur-xl"
           >
             <div className="flex max-h-[calc(100vh-4rem)] flex-col justify-between overflow-y-auto p-4">
               {/* Navigation Links */}

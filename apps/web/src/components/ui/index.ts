@@ -1,3 +1,4 @@
+export * from "./animated-section";
 export * from "./animated-theme-toggler";
 export * from "./avatar";
 export * from "./badge";
