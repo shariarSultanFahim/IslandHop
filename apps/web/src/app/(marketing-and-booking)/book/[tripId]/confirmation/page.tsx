@@ -10,7 +10,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { AVAILABLE_FERRIES } from "@/data/ferries";
 
 import { BookingStepperNav } from "@/widgets";
-import { Button, Card, CardContent } from "@/ui";
+import { AnimatedSection, Button, Card, CardContent } from "@/ui";
 
 interface Step4ConfirmationPageProps {
   params: Promise<{ tripId: string }>;
@@ -78,7 +78,11 @@ export default function Step4ConfirmationPage({ params }: Step4ConfirmationPageP
       {/* 2. Main Content */}
       <main className="container mx-auto mt-8 max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* Success Header Icon & Title */}
-        <div className="space-y-3 text-center">
+        <AnimatedSection
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          className="space-y-3 text-center"
+        >
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#A3E635]/30 text-[#15803D] dark:bg-emerald-950/40 dark:text-emerald-400">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#38BDF8]/40 text-[#0284C7] dark:bg-sky-900/50 dark:text-sky-300">
               <Check className="h-5 w-5 stroke-[3]" />
@@ -92,12 +96,12 @@ export default function Step4ConfirmationPage({ params }: Step4ConfirmationPageP
             Your ferry ticket is ready. Keep your booking reference and QR ticket with you for
             boarding.
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* 3. Confirmation Cards Layout */}
         <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-12">
           {/* Left Column: QR Code & Reference Card */}
-          <div className="md:col-span-4">
+          <AnimatedSection delay={0.05} className="md:col-span-4">
             <Card className="border-border/80 dark:bg-card rounded-2xl border bg-white p-6 text-center shadow-sm">
               <CardContent className="space-y-5 p-0">
                 <div className="space-y-1">
@@ -144,10 +148,10 @@ export default function Step4ConfirmationPage({ params }: Step4ConfirmationPageP
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </AnimatedSection>
 
           {/* Right Column: Trip Details & Passenger Info */}
-          <div className="space-y-6 md:col-span-8">
+          <AnimatedSection delay={0.08} className="space-y-6 md:col-span-8">
             {/* Trip Details Card */}
             <Card className="border-border/80 dark:bg-card rounded-2xl border bg-white p-6 shadow-sm">
               <CardContent className="space-y-6 p-0">
@@ -246,7 +250,7 @@ export default function Step4ConfirmationPage({ params }: Step4ConfirmationPageP
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </AnimatedSection>
         </div>
       </main>
     </div>

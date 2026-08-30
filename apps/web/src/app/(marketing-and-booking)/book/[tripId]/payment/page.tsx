@@ -9,7 +9,7 @@ import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 import { AVAILABLE_FERRIES } from "@/data/ferries";
 
 import { BookingStepperNav, BookingSummarySidebar } from "@/widgets";
-import { Button, Card, CardContent, Input } from "@/ui";
+import { AnimatedSection, Button, Card, CardContent, Input } from "@/ui";
 
 interface Step3PaymentPageProps {
   params: Promise<{ tripId: string }>;
@@ -96,7 +96,11 @@ export default function Step3PaymentPage({ params }: Step3PaymentPageProps) {
       <main className="container mx-auto mt-8 max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Left Column: Payment Form */}
-          <div className="space-y-6 lg:col-span-8">
+          <AnimatedSection
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="space-y-6 lg:col-span-8"
+          >
             {/* Header Titles */}
             <div className="space-y-1">
               <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl">
@@ -192,10 +196,10 @@ export default function Step3PaymentPage({ params }: Step3PaymentPageProps) {
                 </div>
               </div>
             </form>
-          </div>
+          </AnimatedSection>
 
           {/* Right Column: Sticky Summary Sidebar */}
-          <div className="lg:col-span-4">
+          <AnimatedSection delay={0.08} className="lg:col-span-4">
             <div className="sticky top-24">
               <BookingSummarySidebar
                 trip={trip}
@@ -230,7 +234,7 @@ export default function Step3PaymentPage({ params }: Step3PaymentPageProps) {
                 }
               />
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </main>
     </div>

@@ -29,6 +29,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { MOCK_PASSENGER_BOOKINGS } from "@/data/bookings";
 
 import {
+  AnimatedSection,
   Badge,
   Button,
   Card,
@@ -76,7 +77,11 @@ export default function BookingDetailsPage({ params }: BookingDetailsPageProps) 
         {/* 2-Column Responsive Layout */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Left Main Column (8 cols) */}
-          <div className="space-y-6 lg:col-span-8">
+          <AnimatedSection
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="space-y-6 lg:col-span-8"
+          >
             {/* 1. Trip Information Card */}
             <Card className="border-border/80 dark:bg-card rounded-3xl border bg-white p-6 shadow-sm sm:p-7">
               <CardContent className="space-y-6 p-0">
@@ -364,10 +369,10 @@ export default function BookingDetailsPage({ params }: BookingDetailsPageProps) 
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </AnimatedSection>
 
           {/* Right Sidebar Column (4 cols) */}
-          <div className="space-y-6 lg:col-span-4">
+          <AnimatedSection delay={0.08} className="space-y-6 lg:col-span-4">
             {/* 1. Payment Summary Card */}
             <Card className="border-border/80 dark:bg-card rounded-3xl border bg-white p-6 shadow-sm sm:p-7">
               <CardContent className="space-y-4 p-0">
@@ -526,7 +531,7 @@ export default function BookingDetailsPage({ params }: BookingDetailsPageProps) 
                 </div>
               </div>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </main>
 

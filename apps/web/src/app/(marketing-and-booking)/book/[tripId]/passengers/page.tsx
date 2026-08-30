@@ -10,7 +10,7 @@ import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 import { AVAILABLE_FERRIES } from "@/data/ferries";
 
 import { BookingStepperNav, BookingSummarySidebar } from "@/widgets";
-import { Button, Card, CardContent, Input } from "@/ui";
+import { AnimatedSection, Button, Card, CardContent, Input } from "@/ui";
 
 interface Step2PassengersPageProps {
   params: Promise<{ tripId: string }>;
@@ -110,7 +110,11 @@ export default function Step2PassengersPage({ params }: Step2PassengersPageProps
       <main className="container mx-auto mt-8 max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Left Column: Passenger Info Form */}
-          <div className="space-y-6 lg:col-span-8">
+          <AnimatedSection
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="space-y-6 lg:col-span-8"
+          >
             {/* Header Titles */}
             <div className="space-y-1">
               <div className="text-[11px] font-extrabold tracking-wider text-[#003B95] uppercase dark:text-blue-400">
@@ -208,10 +212,10 @@ export default function Step2PassengersPage({ params }: Step2PassengersPageProps
                 </CardContent>
               </Card>
             </form>
-          </div>
+          </AnimatedSection>
 
           {/* Right Column: Sticky Summary Sidebar */}
-          <div className="lg:col-span-4">
+          <AnimatedSection delay={0.08} className="lg:col-span-4">
             <div className="sticky top-24">
               <BookingSummarySidebar
                 trip={trip}
@@ -244,7 +248,7 @@ export default function Step2PassengersPage({ params }: Step2PassengersPageProps
                 }
               />
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </main>
     </div>

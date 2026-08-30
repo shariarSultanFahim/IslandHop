@@ -11,6 +11,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  AnimatedSection,
   Button,
   Card,
   CardContent,
@@ -35,18 +36,22 @@ export default function HelpPage() {
     <div className="dark:bg-background min-h-screen bg-[#F8FAFC] py-20">
       <main className="container mx-auto max-w-7xl px-4 pt-10 sm:px-6 lg:px-8">
         {/* Top Header */}
-        <div className="mb-10 space-y-1">
+        <AnimatedSection
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="mb-10 space-y-1"
+        >
           <h1 className="text-foreground text-3xl font-black tracking-tight sm:text-4xl">FAQ</h1>
           <p className="text-muted-foreground text-xs sm:text-sm">
             Here are some frequently asked questions.
           </p>
           <div className="h-[3px] w-12 rounded-full bg-[#003B95] dark:bg-blue-500" />
-        </div>
+        </AnimatedSection>
 
         {/* 2-Column Main Section */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Left Column: FAQ Accordion List */}
-          <div className="lg:col-span-8">
+          <AnimatedSection delay={0.05} className="lg:col-span-8">
             <Card className="border-border/80 dark:bg-card rounded-3xl border bg-white p-6 shadow-sm sm:p-8">
               <CardContent className="p-0">
                 <Accordion type="single" collapsible defaultValue="faq-1" className="w-full">
@@ -73,10 +78,10 @@ export default function HelpPage() {
                 </Accordion>
               </CardContent>
             </Card>
-          </div>
+          </AnimatedSection>
 
           {/* Right Column: "Still need help?" Support Cards */}
-          <div className="space-y-6 lg:col-span-4">
+          <AnimatedSection delay={0.1} className="space-y-6 lg:col-span-4">
             <Card className="border-border/80 dark:bg-card rounded-3xl border bg-white p-6 shadow-sm sm:p-7">
               <CardContent className="space-y-5 p-0">
                 <div className="space-y-1">
@@ -156,11 +161,14 @@ export default function HelpPage() {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </AnimatedSection>
         </div>
 
         {/* Bottom Banner: Stay updated / Newsletter */}
-        <div className="mt-14 overflow-hidden rounded-3xl border border-blue-100 bg-[#EBF5FF] p-6 shadow-sm sm:p-8 dark:border-blue-900/40 dark:bg-blue-950/30">
+        <AnimatedSection
+          delay={0.1}
+          className="mt-14 overflow-hidden rounded-3xl border border-blue-100 bg-[#EBF5FF] p-6 shadow-sm sm:p-8 dark:border-blue-900/40 dark:bg-blue-950/30"
+        >
           <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
             {/* Left Icon & Text */}
             <div className="flex items-center gap-4 text-center sm:text-left">
@@ -194,7 +202,7 @@ export default function HelpPage() {
               </Button>
             </form>
           </div>
-        </div>
+        </AnimatedSection>
       </main>
     </div>
   );

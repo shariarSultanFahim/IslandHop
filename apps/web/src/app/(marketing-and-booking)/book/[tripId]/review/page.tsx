@@ -10,7 +10,7 @@ import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 import { AVAILABLE_FERRIES } from "@/data/ferries";
 
 import { BookingStepperNav, BookingSummarySidebar } from "@/widgets";
-import { Button, Card, CardContent } from "@/ui";
+import { AnimatedSection, Button, Card, CardContent } from "@/ui";
 
 interface Step1ReviewPageProps {
   params: Promise<{ tripId: string }>;
@@ -78,7 +78,11 @@ export default function Step1ReviewPage({ params }: Step1ReviewPageProps) {
       <main className="container mx-auto mt-8 max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Left Column: Trip Details & Passenger Selector */}
-          <div className="space-y-6 lg:col-span-8">
+          <AnimatedSection
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="space-y-6 lg:col-span-8"
+          >
             {/* Trip Recap Card */}
             <Card className="border-border/80 dark:bg-card rounded-2xl border bg-white p-6 shadow-sm">
               <CardContent className="space-y-6 p-0">
@@ -212,10 +216,10 @@ export default function Step1ReviewPage({ params }: Step1ReviewPageProps) {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </AnimatedSection>
 
           {/* Right Column: Sticky Summary Sidebar */}
-          <div className="lg:col-span-4">
+          <AnimatedSection delay={0.08} className="lg:col-span-4">
             <div className="sticky top-24">
               <BookingSummarySidebar
                 trip={trip}
@@ -231,7 +235,7 @@ export default function Step1ReviewPage({ params }: Step1ReviewPageProps) {
                 }
               />
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </main>
     </div>
