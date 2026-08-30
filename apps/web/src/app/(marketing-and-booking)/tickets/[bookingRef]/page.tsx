@@ -62,7 +62,7 @@ export default function ETicketPage({ params }: ETicketPageProps) {
   }
 
   return (
-    <div className="dark:bg-background flex min-h-screen flex-col items-center justify-center bg-[#F8FAFC] px-4 py-12">
+    <div className="dark:bg-background flex min-h-screen flex-col items-center justify-center bg-[#F8FAFC] px-4 py-20">
       {/* Top Back and Print Actions */}
       <div className="mb-6 flex w-full max-w-md items-center justify-between">
         <Button variant="ghost" size="sm" asChild className="text-xs font-semibold">

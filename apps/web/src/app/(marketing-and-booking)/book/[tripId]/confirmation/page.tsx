@@ -69,7 +69,7 @@ export default function Step4ConfirmationPage({ params }: Step4ConfirmationPageP
   const totalPrice = trip.price * passengerCount;
 
   return (
-    <div className="dark:bg-background min-h-screen bg-[#F8FAFC] pb-24">
+    <div className="dark:bg-background min-h-screen bg-[#F8FAFC] py-20">
       {/* 1. Top Stepper Header */}
       <div className="border-border/60 dark:bg-card border-b bg-white">
         <BookingStepperNav currentStep={4} />

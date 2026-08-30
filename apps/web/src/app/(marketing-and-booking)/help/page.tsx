@@ -32,7 +32,7 @@ export default function HelpPage() {
   };
 
   return (
-    <div className="dark:bg-background min-h-screen bg-[#F8FAFC] pb-20">
+    <div className="dark:bg-background min-h-screen bg-[#F8FAFC] py-20">
       <main className="container mx-auto max-w-7xl px-4 pt-10 sm:px-6 lg:px-8">
         {/* Top Header */}
         <div className="mb-10 space-y-1">

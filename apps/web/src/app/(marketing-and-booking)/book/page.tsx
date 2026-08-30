@@ -42,7 +42,7 @@ export default async function BookPage({ searchParams }: BookPageProps) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col pb-16">
+    <div className="flex min-h-screen flex-col py-16">
       {/* 1. Top Hero Section with Ferry Banner */}
       <section className="bg-background relative w-full overflow-hidden pt-12 pb-24 md:pt-16 md:pb-28">
         {/* Background Ferry Image */}

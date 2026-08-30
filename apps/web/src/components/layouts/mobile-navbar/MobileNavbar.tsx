@@ -91,7 +91,7 @@ export function MobileNavbar() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="border-border/60 bg-background/95 fixed inset-x-0 top-16 z-40 overflow-hidden border-b shadow-xl backdrop-blur-xl"
           >
-            <div className="flex max-h-[calc(100vh-4rem)] flex-col justify-between overflow-y-auto p-4">
+            <div className="flex max-h-[calc(100vh-[var(--header-h)])] flex-col justify-between overflow-y-auto p-4">
               {/* Navigation Links */}
               <nav className="divide-border/60 flex flex-col divide-y pt-2">
                 {visibleNavLinks.map((link) => {
